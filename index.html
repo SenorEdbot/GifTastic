@@ -10,11 +10,21 @@
 
 <body>
   <div class="container">
+    <div class="jumbotron">
+      <h1>Sports Gif Generator</h1>
+    </div>
     <div class="row">
       <div class="col col-lg-9">
         <div id="topicButtons"></div>
       </div>
       <div class="col col-lg-3">
+          <form role="form">
+            <div class="form-group row">
+              <label for="gif-input">Add a sport:</label>
+              <input class="form-control" id="gif-input" type="text">
+            </div>
+            <button class="btn btn-default" id="add-sport" type="submit">Submit</button>
+          </form>
         <!--This is where the form will go for the user to add a sport-->
       </div>
     </div> <!--End of the 1st Row-->
@@ -24,7 +34,7 @@
     </div> <!--End of the 2nd Row-->
     <div class="row">
       <div id="gifDiv"></div>
-    </div> <!--End of the 2nd Row-->
+    </div> <!--End of the 3nd Row-->
 
 
   

@@ -22,10 +22,14 @@ var topics = [
 ];
 var searchTerm;
 
-for (var i=0; i<topics.length; i++) {
-    var newB = $('<button>').addClass('buttons').attr('sport', topics[i]).text(topics[i]);
-    $('#topicButtons').append(newB);    
+var generateButtons = function(){
+    $('#topicButtons').empty();
+    for (var i=0; i<topics.length; i++) {
+        var newB = $('<button>').addClass('buttons').attr('sport', topics[i]).text(topics[i]);
+        $('#topicButtons').append(newB);    
+    }
 }
+generateButtons();
 
 $(document).on('click','.buttons', function(){
     $('#gifDiv').empty();
@@ -44,23 +48,31 @@ $(document).on('click','.buttons', function(){
         //For loop to loop through all the different objects in the data array
         for (var i=0; i<response.data.length; i++) {
             var newCard = $('<div class="card">').addClass("gifCards");
-            var cardImg = $('<img class="card-img-top">').attr('static-url',response.data[i].images.fixed_height_still.url).attr('dynamic-url',response.data[i].images.fixed_width.url).attr('isstatic','true');
+            var cardImg = $('<img class="card-img-top">').attr('static-url',response.data[i].images.fixed_height_still.url).attr('dynamic-url',response.data[i].images.fixed_width.url).attr('data-state','static').attr('isfav','false');
             cardImg.attr('src',cardImg.attr('static-url'));
             var cardBody = $('<div class="card-body">');
             var cardp = $('<p class="card-text">').text("Rating: " + response.data[i].rating);
-            cardBody.append(cardp);
+            var cardp2 = $('<p class="card-text">').text("Title: " + response.data[i].title);
+            cardBody.append(cardp2,cardp);
             newCard.append(cardImg,cardBody);
             $('#gifDiv').append(newCard);
         }
     });
 
-    $(document).on('click', '.card-img-top', function(event){
-        if($(this).attr('isstatic')==='false'){
-            $(this).attr('src',$(this).attr('static-url'));
-            $(this).attr('isstatic', 'true');
-        } else {
-            $(this).attr('src',$(this).attr('dynamic-url'));
-            $(this).attr('isstatic', 'false');
-        };
-    });
 });
+//On Click Listener that will play and pause the gifs
+$(document).off('click', '.card-img-top').on('click', '.card-img-top', function (event) {
+    var state = $(this).attr('data-state');
+    if (state === 'static') {
+        $(this).attr('src', $(this).attr('dynamic-url'));
+        $(this).attr('data-state', 'dynamic');
+    } else {
+        $(this).attr('src', $(this).attr('static-url'));
+        $(this).attr('data-state', 'static');
+    };
+});
+$('#add-sport').on('click', function(){
+    event.preventDefault();
+    topics.push($('#gif-input').val().trim());
+    generateButtons();
+})
