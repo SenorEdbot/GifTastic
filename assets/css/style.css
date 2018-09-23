@@ -1,5 +1,13 @@
 .buttons {
-    margin: 1%;
+    margin: 5px;
+    color: #006400;
+    background: transparent;
+    border: 2px solid #006400;
+    border-radius: 6px;
+}
+.buttons:hover {
+    background-color: #006400;
+    color: white;
 }
 #favHeader {
     display: none;
@@ -7,5 +15,12 @@
 .gifCards {
     width: 275px;
     float: left;
-    margin: 1%;
+    margin: 5px;
+}
+#favDiv img{
+    margin: 5px;
+}
+.jumbotron {
+    background: url(../images/titleImage4.jpg) no-repeat;
+    background-size: 100%;
 }
